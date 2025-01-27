@@ -19,6 +19,7 @@ class ParkingLotRoutes {
         this.router.post('/parkingLots', authenticateJWT as express.RequestHandler,this.parkingLotController.createParkingLot);
         this.router.post('/parkingLot/checkin', authenticateJWT as express.RequestHandler,this.parkingLotController.checkIn);
         this.router.patch('/parkingLots/:id', authenticateJWT as express.RequestHandler,this.parkingLotController.updateParkingLot);
+        this.router.get('/parkingLots/:id', authenticateJWT as express.RequestHandler, this.parkingLotController.getParkingLotById);
     }
 
     public getRouter(): Router {

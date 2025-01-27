@@ -2,3 +2,7 @@
 
 .git
 
+coverage
+.env
+.git
+.vscode

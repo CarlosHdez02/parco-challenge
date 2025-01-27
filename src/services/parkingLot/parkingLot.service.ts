@@ -48,7 +48,7 @@ export default class ParkingLotService {
         }
     }
     
-    public async getParkingLotById({ id }: ParkingLot): Promise<ParkingLot> {
+    public async getParkingLotById( id : string): Promise<ParkingLot> {
         try {
             const parkingLot = await this.parkingLotRepository.findOne({ where: { id } })
             if (!parkingLot) {

@@ -39,6 +39,17 @@ export default class ParkingLotController {
         }
     };
 
+    public getParkingLotById = async (req: Request, res: Response, next: NextFunction): Promise<void>=>{
+        try{
+            const {id} = req.params;
+            const parkingLot = await this.parkingLotService.getParkingLotById(id)
+            res.status(200).json(parkingLot)
+        }catch(err){
+            console.error(err,"here")
+            next(err)
+        }
+    }
+
     public createParkingLot = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
             const parkingLot: ParkingLotDTO = req.body;
