@@ -5,18 +5,16 @@ import { errorHandler } from './middlewares/errorHandler.middleware';
 import ParkingLotRoutes from './routes/parkingLot.routes';
 import authenticationRoutes from './routes/authentication.routes';
 import usersRoutes from './routes/users.routes';
+import { Server } from 'http';
 dotenv.config()
 const app = express()
 
 
-//console.log(process.env.DB_HOST,"here")
-
 app.use(express.json())
+let server:Server
 
 
 const PORT = process.env.PORT || 3000;
-console.log(PORT,'port here')
-console.log(process.env.DB_PASSWORD, 'password index')
 
   const handleInitDatabase = async ()=>{
     try{
@@ -34,7 +32,14 @@ app.use('/api/v1', authenticationRoutes.getRouter())
 app.use('/api/v1', ParkingLotRoutes.getRouter())
 app.use('/api/v1', usersRoutes.getRouter())
 
+export function startServer() {
+    server = app.listen(process.env.PORT || 3000);
+    return server;
+}
 
+export function getServer() {
+    return server;
+}
 app.use(errorHandler)
 export default app;
 app.listen(PORT, () => {

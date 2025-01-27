@@ -1,23 +1,15 @@
-# Fetching the minified node image on apline linux
-FROM node:slim
+FROM node:lts-alpine
 
-# Declaring env
-ENV NODE_ENV production
+WORKDIR /parco
 
-# Setting up the work directory
-WORKDIR /express-docker
+COPY package.json ./
 
-# Copying all the files in our project
-COPY . .
-
-# Installing dependencies
 RUN npm install
 
-# Installing pm2 globally
-RUN npm install pm2 -g
+COPY . .
 
-# Starting our application
-CMD pm2 start process.yml && tail -f /dev/null
-
-# Exposing server port
 EXPOSE 3000
+
+USER node
+
+CMD ["npm", "start"]
