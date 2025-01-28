@@ -8,6 +8,10 @@ This README provides details on how to set up, run, and test the API, as well as
 
 Table of Contents
 
+DOCKER
+
+envs
+
 Prerequisites
 
 Installation
@@ -23,6 +27,31 @@ Testing
 Linting
 
 API Usage
+
+Docker.
+To pull the image hosted on dockerhub use the next commands in your terminal:
+docker pull carloshdez02/parco-api:latest
+ docker run --platform linux/arm64/v8 -it -p 3003:3000 -e DB_HOST=host.docker.internal --env-file .env carloshdez02/parco-api:latest
+ Note: 3003 can be any port of your convinience
+
+Envs.
+The envs are not supposed to be loaded but we are making an exception here because i would like to cover all the edge cases to prevent  failure(xD)
+#Database config variables
+DB_HOST=host.docker.internal
+DB_USER=postgres
+DB_PASSWORD=mypassword
+DB_NAME=parco
+DB_PORT=5432
+NODE_DEV=development
+
+#Authentication config variables
+JWT_SECRET=parcoAppSecret
+JWT_EXPIRES_IN=1h
+
+#Port where the app is running
+PORT=3000
+
+
 
 Dependencies
 Before getting started, ensure you have the following tools installed:

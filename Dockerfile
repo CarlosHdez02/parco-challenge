@@ -1,27 +1,22 @@
-FROM node:lts-alpine
+FROM node:16-alpine
 
 WORKDIR /parco
 
-# Install build dependencies
-#RUN apk add --no-cache python3 make g++
+RUN apk add --no-cache python3 make g++ git
 
-# Copy package files
+RUN npm config set python python3
+RUN npm config set arch arm64
+RUN npm config set platform linux
+
 COPY package*.json ./
-
-# Install dependencies with node-gyp
+RUN npm install -g node-gyp
+RUN npm install -g bcrypt
 RUN npm ci
+RUN npm install bcrypt@latest --save
 
-# Copy source code
 COPY . .
-
-# Build TypeScript code
+# Build TypeScript files
 RUN npm run tsc
 
-EXPOSE 3000
-
-# Remove build dependencies to reduce image size
-#RUN apk del python3 make g++
-
-USER node
-
+# Start the application using your start script
 CMD ["npm", "start"]
